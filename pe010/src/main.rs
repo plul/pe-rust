@@ -4,7 +4,7 @@ use shared::SieveOfEratosthenes;
 
 fn main() {
     let mut sieve = SieveOfEratosthenes::new();
+    let result: usize = sieve.iter().take_while(|n| *n < 2_000_000).sum();
 
-    let result = sieve.iter().nth(10000).unwrap();
     println!("{}", result);
 }
