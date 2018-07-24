@@ -2,7 +2,7 @@ extern crate num_bigint;
 extern crate shared;
 
 use num_bigint::BigUint;
-use shared::DigitIterator;
+use shared::digit_iterator::DigitIterator;
 
 const DATA: &[&[u8; 50]; 100] = &[
     b"37107287533902102798797998220837590246510135740250",

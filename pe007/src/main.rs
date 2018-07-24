@@ -1,6 +1,6 @@
 extern crate shared;
 
-use shared::SieveOfEratosthenes;
+use shared::sieve_of_eratosthenes::SieveOfEratosthenes;
 
 fn main() {
     let mut sieve = SieveOfEratosthenes::new();

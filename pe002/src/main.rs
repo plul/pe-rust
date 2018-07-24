@@ -1,4 +1,6 @@
-use std::ops::BitAnd;
+extern crate shared;
+
+use shared::util::is_even;
 
 struct Fib {
     x: (u64, u64),
@@ -17,10 +19,6 @@ impl Iterator for Fib {
         self.x = (self.x.1, self.x.0 + self.x.1);
         Some(self.x.1)
     }
-}
-
-fn is_even<N: From<u8> + PartialEq + BitAnd<Output = N>>(n: N) -> bool {
-    n & 1.into() == 0.into()
 }
 
 fn main() {

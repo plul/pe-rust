@@ -1,7 +1,6 @@
 extern crate shared;
 
-use shared::DigitIterator;
-
+use shared::digit_iterator::DigitIterator;
 use std::cmp::max;
 
 /// Iterate from left to right and right to left at the same time, comparing digits.

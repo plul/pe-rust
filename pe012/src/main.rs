@@ -1,6 +1,6 @@
 extern crate shared;
 
-use shared::PrimeFactorization;
+use shared::prime_factorization::PrimeFactorization;
 
 fn main() {
     let triangle_numbers = (1..).scan(0, |state, x| {
