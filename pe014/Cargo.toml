@@ -1,0 +1,7 @@
+[package]
+name = "pe014"
+version = "0.1.0"
+authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
+
+[dependencies]
+shared = { path = "../shared" }
