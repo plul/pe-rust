@@ -1,9 +1,8 @@
 [package]
-name = "shared"
+name = "pe013"
 version = "0.1.0"
 authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
 
 [dependencies]
-bit-vec = "0.5"
-itertools = "0.7"
 num-bigint = "0.2"
+shared = { path = "../shared" }

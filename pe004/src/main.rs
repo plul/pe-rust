@@ -1,33 +1,8 @@
+extern crate shared;
+
+use shared::DigitIterator;
+
 use std::cmp::max;
-
-struct DigitIterator {
-    n: u64,
-}
-
-impl DigitIterator {
-    fn new(n: u64) -> DigitIterator {
-        DigitIterator { n: n }
-    }
-}
-
-// Iteration is from least significant to most significant digit
-impl Iterator for DigitIterator {
-    type Item = u64;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.n == 0 {
-            return None;
-        }
-
-        // Extract least significant digit
-        let digit = self.n % 10;
-
-        // Discard least significant digit
-        self.n /= 10;
-
-        Some(digit)
-    }
-}
 
 /// Iterate from left to right and right to left at the same time, comparing digits.
 fn is_palindrome(n: u64) -> bool {
