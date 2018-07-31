@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 struct Date {
     weekday: usize,
     day: usize,
@@ -71,9 +73,18 @@ impl SimpleCalendar {
 }
 
 fn main() {
+    let t_0 = Instant::now();
+    let result = problem();
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem() -> usize {
     let mut sc = SimpleCalendar::new();
 
-    let mut result: u64 = 0;
+    let mut result: usize = 0;
     while sc.date.year < 2001 {
         if sc.date.weekday == 6 && sc.date.day == 0 && sc.date.year >= 1901 {
             result += 1;
@@ -81,5 +92,15 @@ fn main() {
         sc.advance();
     }
 
-    println!("{}", result);
+    result
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(), 171);
+    }
 }

@@ -1,10 +1,27 @@
 extern crate shared;
 
 use shared::sieve_of_eratosthenes::SieveOfEratosthenes;
+use std::time::Instant;
 
 fn main() {
-    let mut sieve = SieveOfEratosthenes::new();
+    let t_0 = Instant::now();
+    let result = problem(10000);
+    let t_1 = Instant::now();
 
-    let result = sieve.iter().nth(10000).unwrap();
-    println!("{}", result);
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(n: usize) -> usize {
+    SieveOfEratosthenes::new().iter().nth(n).unwrap()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(10000), 104743);
+    }
 }

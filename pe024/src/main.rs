@@ -6,13 +6,19 @@
 //! Furthermore, those are all ordered, so it is fairly simple to figure out which
 //! character should come first, and then the same logic can be applied for the next...
 
-fn factorial(n: usize) -> usize {
-    (1..=n).product()
-}
+use std::time::Instant;
 
 fn main() {
+    let t_0 = Instant::now();
+    let result = problem(1_000_000 - 1);
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(mut target: usize) -> String {
     let mut chars: Vec<char> = vec!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    let mut target = 1_000_000 - 1;
 
     let mut permutation = Vec::<char>::new();
     while chars.len() > 0 {
@@ -25,7 +31,19 @@ fn main() {
         target %= f / l;
     }
 
-    let result: String = permutation.into_iter().collect();
+    permutation.into_iter().collect()
+}
 
-    println!("{}", result);
+fn factorial(n: usize) -> usize {
+    (1..=n).product()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(&problem(1_000_000 - 1), "2783915460");
+    }
 }

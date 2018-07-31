@@ -1,9 +1,31 @@
 use std::fs::File;
 use std::io::Read;
+use std::time::Instant;
+
+fn main() {
+    let t_0 = Instant::now();
+    let result = problem();
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem() -> usize {
+    let mut names = load_names("names.txt");
+
+    names.sort();
+
+    names
+        .into_iter()
+        .enumerate()
+        .map(|(idx, name)| name_score(&name) * (idx + 1))
+        .sum()
+}
 
 /// Assumes lower case ascii characters
 fn char_score(c: char) -> usize {
-    (c as u8 - 96u8) as usize
+    1 + (c as u8 - b'a') as usize
 }
 
 fn name_score(name: &str) -> usize {
@@ -24,21 +46,17 @@ fn load_names(filename: &str) -> Vec<String> {
         .collect()
 }
 
-fn main() {
-    let mut names = load_names("names.txt");
+#[cfg(test)]
+mod test {
+    use super::*;
 
-    names.sort();
+    #[test]
+    fn colin() {
+        assert_eq!(name_score("colin"), 53);
+    }
 
-    let result: usize = names
-        .into_iter()
-        .enumerate()
-        .map(|(idx, name)| name_score(&name) * (idx + 1))
-        .sum();
-
-    println!("{}", result);
-}
-
-#[test]
-fn colin() {
-    assert_eq!(name_score("colin"), 53);
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(), 871198282);
+    }
 }

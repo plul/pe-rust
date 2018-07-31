@@ -1,6 +1,7 @@
 use std::cmp::max;
 use std::fs::File;
 use std::io::Read;
+use std::time::Instant;
 
 enum Direction {
     South,
@@ -75,7 +76,15 @@ impl Grid {
 }
 
 fn main() {
-    let n = 20;
+    let t_0 = Instant::now();
+    let result = problem(20);
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(n: usize) -> usize {
     let grid = Grid::from_file("data.txt");
 
     // East going lines starting from column 0
@@ -83,6 +92,9 @@ fn main() {
 
     // South going lines starting from row 0
     let south = (0..n).map(|col_idx| grid.line(0, col_idx, &Direction::South));
+
+    // There is a bit of overlap in the following lines, but that does not matter as we are looking for the
+    // maximum, not the sum or product.
 
     // South east going lines starting at column 0
     let south_east_1 = (0..n).map(|row_idx| grid.line(row_idx, 0, &Direction::SouthEast));
@@ -117,5 +129,15 @@ fn main() {
         }
     }
 
-    println!("{}", result);
+    result
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(20), 70600674);
+    }
 }

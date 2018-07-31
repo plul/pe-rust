@@ -5,4 +5,3 @@ authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
 
 [dependencies]
 num-bigint = "0.2"
-shared = { path = "../shared" }

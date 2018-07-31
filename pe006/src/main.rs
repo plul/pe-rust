@@ -1,15 +1,32 @@
-fn sum_of_squares(n: &u64) -> u64 {
-    (1..=*n).map(|x| x * x).sum()
-}
-
-fn square_of_sum(n: &u64) -> u64 {
-    let sum: u64 = (1..=*n).sum();
-    sum * sum
-}
+use std::time::Instant;
 
 fn main() {
-    let n = 100;
-    let result: u64 = square_of_sum(&n) - sum_of_squares(&n);
+    let t_0 = Instant::now();
+    let result = problem(100);
+    let t_1 = Instant::now();
 
-    println!("{}", result);
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(n: usize) -> usize {
+    square_of_sum(n) - sum_of_squares(n)
+}
+
+fn sum_of_squares(n: usize) -> usize {
+    (1..=n).map(|x| x * x).sum()
+}
+
+fn square_of_sum(n: usize) -> usize {
+    (1..=n).sum::<usize>().pow(2)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(100), 25164150);
+    }
 }

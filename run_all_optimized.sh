@@ -1,0 +1,1 @@
+find pe* -maxdepth 0 -type d -execdir sh -c "printf \"\nRunning {}\"; cd {}; cargo run --release" \; -o -quit

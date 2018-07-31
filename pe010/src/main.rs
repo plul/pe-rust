@@ -1,10 +1,31 @@
 extern crate shared;
 
 use shared::sieve_of_eratosthenes::SieveOfEratosthenes;
+use std::time::Instant;
 
 fn main() {
-    let mut sieve = SieveOfEratosthenes::new();
-    let result: usize = sieve.iter().take_while(|n| *n < 2_000_000).sum();
+    let t_0 = Instant::now();
+    let result = problem(2_000_000);
+    let t_1 = Instant::now();
 
-    println!("{}", result);
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(x: usize) -> u64 {
+    SieveOfEratosthenes::new()
+        .iter()
+        .take_while(|&n| n < x)
+        .map(|n| n as u64)
+        .sum::<u64>()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(2_000_000), 142913828922);
+    }
 }

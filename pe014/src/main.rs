@@ -1,6 +1,4 @@
-extern crate shared;
-
-use shared::util::is_even;
+use std::time::Instant;
 
 struct ChainInspector {
     known: Vec<usize>,
@@ -20,14 +18,14 @@ impl ChainInspector {
         }
 
         // If the result is already known, return early.
-        if let Some(len) = self.known.get(n) {
-            if *len > 0 {
-                return *len;
+        if let Some(&len) = self.known.get(n) {
+            if len > 0 {
+                return len;
             }
         }
 
         // Produce the next integer in the sequence.
-        let m = match is_even(n) {
+        let m = match n % 2 == 0 {
             true => n / 2,
             false => 3 * n + 1,
         };
@@ -45,15 +43,31 @@ impl ChainInspector {
 }
 
 fn main() {
-    let n = 1_000_000;
+    let t_0 = Instant::now();
+    let result = problem(1_000_000);
+    let t_1 = Instant::now();
 
-    // Some numbers will go over one million, but we will just cache the ones below.
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem(n: usize) -> usize {
+    // Some numbers will go over `n`, but we will just cache the ones below.
     let mut chain_inspector = ChainInspector::with_memory(n);
 
-    let (start, _) = (1..n)
+    (1..n)
         .map(|start| (start, chain_inspector.inspect(start)))
         .max_by_key(|(_, chain_len)| *chain_len)
-        .unwrap();
+        .map(|(start, _)| start)
+        .unwrap()
+}
 
-    println!("{}", start);
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(1_000_000), 837799);
+    }
 }

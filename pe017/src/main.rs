@@ -1,3 +1,14 @@
+use std::time::Instant;
+
+fn main() {
+    let t_0 = Instant::now();
+    let result = problem();
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
 fn name_fragment(n: usize) -> &'static str {
     match n {
         0 => "",
@@ -48,36 +59,41 @@ fn name(n: usize) -> String {
     }
 }
 
-fn main() {
-    let result: usize = (1..=1000)
-        .map(name)
-        .map(|name| name.len())
-        .sum();
-
-    println!("{}", result);
+fn problem() -> usize {
+    (1..=1000).map(name).map(|name| name.len()).sum()
 }
 
-#[test]
-fn number_1() {
-    assert_eq!(name(1), "one");
-}
+#[cfg(test)]
+mod test {
+    use super::*;
 
-#[test]
-fn number_1000() {
-    assert_eq!(name(1000), "onethousand");
-}
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(), 21124);
+    }
 
-#[test]
-fn number_100() {
-    assert_eq!(name(100), "onehundred");
-}
+    #[test]
+    fn number_1() {
+        assert_eq!(name(1), "one");
+    }
 
-#[test]
-fn number_115() {
-    assert_eq!(name(115), "onehundredandfifteen");
-}
+    #[test]
+    fn number_1000() {
+        assert_eq!(name(1000), "onethousand");
+    }
 
-#[test]
-fn number_342() {
-    assert_eq!(name(342), "threehundredandfortytwo");
+    #[test]
+    fn number_100() {
+        assert_eq!(name(100), "onehundred");
+    }
+
+    #[test]
+    fn number_115() {
+        assert_eq!(name(115), "onehundredandfifteen");
+    }
+
+    #[test]
+    fn number_342() {
+        assert_eq!(name(342), "threehundredandfortytwo");
+    }
 }

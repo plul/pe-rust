@@ -1,8 +1,15 @@
-fn divisors(n: usize) -> impl Iterator<Item = usize> {
-    (1..=n / 2).filter(move |x| n % x == 0)
-}
+use std::time::Instant;
 
 fn main() {
+    let t_0 = Instant::now();
+    let result = problem();
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
+}
+
+fn problem() -> usize {
     let mut abundant_numbers: Vec<usize> = Vec::new();
 
     // table[n] indicates whether n is expressible as the sum of two abundant numbers.
@@ -31,10 +38,24 @@ fn main() {
         }
     }
 
-    println!("{}", result);
+    result
 }
 
-#[test]
-fn divisors_of_28() {
-    assert_eq!(divisors(28).sum::<usize>(), 28);
+fn divisors(n: usize) -> impl Iterator<Item = usize> {
+    (1..=n / 2).filter(move |x| n % x == 0)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn divisors_of_28() {
+        assert_eq!(divisors(28).sum::<usize>(), 28);
+    }
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(), 4179871);
+    }
 }

@@ -1,32 +1,37 @@
 """
 A simple solution prototype in Python 3.
 
-What makes this problem so exceptionally easy to solve in Python is the combination of three things:
-1. Numbers do not overflow.
-2. Computation of logarithms are readily available for these non-overflowing numbers (the math.log() function).
-3. Numbers are immutable, so operations on a number x (such as addition; x + y) does not mutate x, it just
-   produces a new data structure for the result. So numbers can be shared without worrying about mutability or
-   ownership.
+For large problem sizes, such as n=100000 this is actually faster than the Rust solution.
 
-1. and 3. are at the cost of performance, obviously, but this program only takes a second to run anyway.
-I am impressed that I can even do 2., because with Rust and its BigUint type, logarithms are not implemented at
-the moment, and apparantly bigint data types in Java do not have support for logarithms either. It's apparantly
-non-trivial to implement.
+What makes this problem so exceptionally easy to solve in Python is the combination of two things:
+1. Standard numbers in Python have arbitrary precision.
+2. Computation of logarithms are readily available for these arbitrary precision numbers via the math.log() function.
 """
 
 import math
+from time import time
 
-fib = 0
-fib_next = 1
-idx = 0
 
-while True:
-    fib, fib_next = fib_next, fib + fib_next
-    idx += 1
+def problem(n):
+    fib = 0
+    fib_next = 1
+    idx = 0
 
-    log = math.log(fib, 10)
-    digits = math.floor(log) + 1
+    while True:
+        fib, fib_next = fib_next, fib + fib_next
+        idx += 1
 
-    if digits >= 1000:
-        print(idx)
-        break
+        # Use the logarithm to compute the number of digits that would be used, were the number to be represented in
+        # base 10.
+        base_10_length = math.floor(math.log(fib, 10)) + 1
+
+        if base_10_length >= n:
+            return idx
+
+
+t_0 = time()
+result = problem(1000)
+t_1 = time()
+
+print("Result:", result)
+print("Time:  ", t_1 - t_0, "seconds")

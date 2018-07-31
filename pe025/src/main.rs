@@ -2,71 +2,53 @@ extern crate num;
 extern crate shared;
 
 use num::bigint::BigUint;
-use num::{One, Zero};
-use shared::digit_iterator::DigitIterator;
-use std::mem::swap;
-use std::ops::{Add, Range};
+use shared::fibonacci::FibonacciIterator;
+use std::ops::Range;
+use std::time::Instant;
 
-struct FibonacciIterator<T: Zero + One + Clone>(T, T)
-where
-    for<'a> &'a T: Add<Output = T>;
+fn main() {
+    let t_0 = Instant::now();
+    let result = problem(1000);
+    let t_1 = Instant::now();
 
-impl<T: Zero + One + Clone> FibonacciIterator<T>
-where
-    for<'a> &'a T: Add<Output = T>,
-{
-    fn new() -> FibonacciIterator<T> {
-        FibonacciIterator(T::zero(), T::one())
-    }
-}
-
-impl<T: Zero + One + Clone> Iterator for FibonacciIterator<T>
-where
-    for<'a> &'a T: Add<Output = T>,
-{
-    type Item = T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0 = &self.0 + &self.1;
-        swap(&mut self.0, &mut self.1);
-
-        Some(self.0.clone())
-    }
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
 }
 
 /// If BigUint supported logarithms, the number of digits in base 10 could be computed
 /// by way of the logarithm to base 10.
-/// However, since the number of digits in base 2 is available, the number of digits in
-/// base 10 can be computed approximately.
-/// This used the fact that Log[2,n]/Log[10,n] is constant and equal to Log[2]/Log[10].
-fn approx_number_of_digits_in_base_10(n: &BigUint) -> Range<u64> {
-    // This is the ratio between the natural logaritm of 2 to the natural logarithm of 10
+/// Keep an eye on https://github.com/rust-num/num-bigint/issues/57
+///
+/// Since the number of digits in base 2 is available, the number of digits in base 10 can
+/// be computed approximately, by utilizing the fact that Log[2,n]/Log[10,n] is constant
+/// and equal to Log[2]/Log[10] in base e.
+fn estimate_number_of_digits_in_base_10(n: &BigUint) -> Range<usize> {
+    // Log[2]/Log[10] to base e.
     let ratio: f64 = 0.30102999566398114;
 
     let f = n.bits() as f64 * ratio;
 
     Range {
-        start: f.floor() as u64,
-        end: f.ceil() as u64,
+        start: f.floor() as usize,
+        end: f.ceil() as usize,
     }
 }
 
-fn main() {
+/// Returns the index of the first Fibonacci number to contain at least `target_digits` digits.
+fn problem(target_digits: usize) -> usize {
     let fib = FibonacciIterator::<BigUint>::new();
 
     let (idx, _) = fib
         .enumerate()
         .find(|(_, n)| {
-            let range = approx_number_of_digits_in_base_10(n);
-            if range.end >= 1000 {
+            let range = estimate_number_of_digits_in_base_10(n);
+            if range.end >= target_digits {
                 // Count exact number of digits
-                return DigitIterator::new(n.clone()).count() >= 1000;
+                return n.to_radix_le(10).len() >= target_digits;
             }
             false
         })
         .unwrap();
 
-    let result = idx + 1;
-
-    println!("{}", result);
+    idx + 1
 }

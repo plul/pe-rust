@@ -32,7 +32,7 @@ impl<N: From<u8> + Clone + PartialEq + DivAssign + Rem<Output = N>> Iterator for
 #[cfg(test)]
 mod tests {
     use super::*;
-    use num_bigint::ToBigUint;
+    use num::bigint::ToBigUint;
 
     #[test]
     fn u64_0() {

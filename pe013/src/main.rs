@@ -1,8 +1,7 @@
 extern crate num_bigint;
-extern crate shared;
 
 use num_bigint::BigUint;
-use shared::digit_iterator::DigitIterator;
+use std::time::Instant;
 
 const DATA: &[&[u8; 50]; 100] = &[
     b"37107287533902102798797998220837590246510135740250",
@@ -107,12 +106,16 @@ const DATA: &[&[u8; 50]; 100] = &[
     b"53503534226472524250874054075591789781264330331690",
 ];
 
-/// Convert a biguint to a u8, by grabbing the least significant digit from a base 10 representation.
-fn single_digit_biguint_to_u8(n: BigUint) -> u8 {
-    *(n.to_radix_le(10).first().unwrap())
+fn main() {
+    let t_0 = Instant::now();
+    let result = problem();
+    let t_1 = Instant::now();
+
+    println!("Result: {}", result);
+    println!("Time:   {:?}", t_1 - t_0);
 }
 
-fn main() {
+fn problem() -> u64 {
     // Compute the sum of the fifty digit numbers in DATA.
     let sum: BigUint = DATA
         .iter()
@@ -120,13 +123,18 @@ fn main() {
         .sum();
 
     // Grab the first 10 digits from the sum.
-    let result = DigitIterator::new(sum)
-        .map(|n| single_digit_biguint_to_u8(n).into())
-        .collect::<Vec<u64>>()
+    sum.to_radix_be(10)
         .into_iter()
-        .rev()
         .take(10)
-        .fold(0u64, |acc, digit| acc * 10 + digit);
+        .fold(0_u64, |acc, digit| acc * 10 + digit as u64)
+}
 
-    println!("{}", result);
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn solution_is_correct() {
+        assert_eq!(problem(), 5537376230);
+    }
 }
