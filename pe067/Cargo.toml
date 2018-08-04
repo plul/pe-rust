@@ -1,7 +1,0 @@
-[package]
-name = "pe067"
-version = "0.1.0"
-authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
-
-[dependencies]
-pe018 = { path = "../pe018" }

@@ -1,8 +1,0 @@
-[package]
-name = "pe025"
-version = "0.1.0"
-authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
-
-[dependencies]
-num = "0.2"
-shared = { path = "../shared" }

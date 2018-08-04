@@ -1,7 +1,0 @@
-[package]
-name = "pe013"
-version = "0.1.0"
-authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
-
-[dependencies]
-num-bigint = "0.2"

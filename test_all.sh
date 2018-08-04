@@ -1,1 +1,0 @@
-find shared pe* -maxdepth 0 -type d -execdir sh -c "printf \"\nTesting {}\"; cd {}; cargo test" \; -o -quit

@@ -1,0 +1,9 @@
+[package]
+name = "project-euler"
+version = "0.1.0"
+authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
+
+[dependencies]
+num = "0.2"
+itertools = "0.7"
+bit-vec = "0.5"
