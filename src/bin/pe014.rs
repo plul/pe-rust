@@ -25,10 +25,7 @@ impl ChainInspector {
         }
 
         // Produce the next integer in the sequence.
-        let m = match n % 2 == 0 {
-            true => n / 2,
-            false => 3 * n + 1,
-        };
+        let m = if n % 2 == 0 { n / 2 } else { 3 * n + 1 };
 
         // Find the length of the chain recursively.
         let len = self.inspect(m) + 1;

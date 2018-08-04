@@ -47,9 +47,11 @@ impl SimpleCalendar {
                 day %= 30;
             }
             1 => {
-                day %= match self.date.is_leap_year() {
-                    true => 29,
-                    false => 28,
+                day %= if self.date.is_leap_year() {
+                    29
+                }
+                else {
+                    28
                 };
             }
             _ => panic!("Unexpected month value"),
@@ -60,9 +62,10 @@ impl SimpleCalendar {
             _ => self.date.month,
         };
 
-        let year = match month == 0 && day == 0 {
-            true => self.date.year + 1,
-            false => self.date.year,
+        let year = if month == 0 && day == 0 {
+            self.date.year + 1
+        } else {
+            self.date.year
         };
 
         self.date.weekday = weekday;

@@ -3,7 +3,7 @@ use std::time::Instant;
 
 fn main() {
     let t_0 = Instant::now();
-    let result = problem(600851475143);
+    let result = problem(600_851_475_143);
     let t_1 = Instant::now();
 
     println!("Result: {}", result);
@@ -40,6 +40,6 @@ mod test {
 
     #[test]
     fn verify_solution() {
-        assert_eq!(problem(600851475143), 6857);
+        assert_eq!(problem(600_851_475_143), 6857);
     }
 }

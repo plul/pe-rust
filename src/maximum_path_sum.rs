@@ -49,7 +49,9 @@ fn parse_data(data: &str) -> Vec<Vec<usize>> {
     data.lines()
         .map(|line| {
             line.split_whitespace()
-                .map(|s| str::parse::<usize>(s).expect(&format!("Failed to parse as usize: {}", s)))
-                .collect()
+                .map(|s| {
+                    str::parse::<usize>(s)
+                        .unwrap_or_else(|_| panic!("Failed to parse as usize: {}", s))
+                }).collect()
         }).collect()
 }

@@ -28,7 +28,7 @@ fn problem() -> usize {
             abundant_numbers.push(n);
 
             // Match n with any previously found abundant number, and mark the sums as expressible by the sum of two abundant numbers.
-            for an in abundant_numbers.iter() {
+            for an in &abundant_numbers {
                 let s = an + n;
                 if s >= table.len() {
                     break;

@@ -6,7 +6,7 @@ pub struct DigitIterator<N: From<u8> + Clone + PartialEq + DivAssign + Rem<Outpu
 
 impl<N: From<u8> + Clone + PartialEq + DivAssign + Rem<Output = N>> DigitIterator<N> {
     pub fn new(n: N) -> DigitIterator<N> {
-        DigitIterator { n: n }
+        DigitIterator { n }
     }
 }
 

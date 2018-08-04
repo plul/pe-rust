@@ -11,6 +11,15 @@ where
     for<'a> &'a T: Add<Output = T>,
 {
     pub fn new() -> FibonacciIterator<T> {
+        Self::default()
+    }
+}
+
+impl<T: One> Default for FibonacciIterator<T>
+where
+    for<'a> &'a T: Add<Output = T>,
+{
+    fn default() -> Self {
         FibonacciIterator(T::one(), T::one())
     }
 }

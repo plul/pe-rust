@@ -20,7 +20,7 @@ fn problem(exp: usize) -> u64 {
         .unwrap()
         .to_radix_le(10)
         .into_iter()
-        .map(|d| d as u64)
+        .map(u64::from)
         .sum()
 }
 

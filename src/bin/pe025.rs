@@ -50,7 +50,7 @@ fn problem(target_digits: usize) -> usize {
 /// Since the number of digits in base 2 is available, the number of digits in base 10 can be computed approximately, by utilizing the fact that log_2(n) divided by log_10(n) is constant and equal to ln(2) divided by ln(10).
 fn estimate_number_of_digits_in_base_10(n: &BigUint) -> Range<usize> {
     // ln(2) / ln(10).
-    let ratio: f64 = 0.30102999566398114;
+    let ratio: f64 = 0.301_029_995_663_981_14;
 
     let f = n.bits() as f64 * ratio;
 

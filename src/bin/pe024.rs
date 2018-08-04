@@ -21,7 +21,7 @@ fn problem(mut target: usize) -> String {
     let mut chars: Vec<char> = vec!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     let mut permutation = Vec::<char>::new();
-    while chars.len() > 0 {
+    while !chars.is_empty() {
         let l = chars.len();
         let f = factorial(l);
 

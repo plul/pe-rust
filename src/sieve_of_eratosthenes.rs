@@ -35,12 +35,18 @@ impl SieveOfEratosthenes {
         for i in 2..len {
             if bv.get(i) == Some(true) {
                 // i is a prime.
-                for j in (i..).map(|x| x * i).take_while(|x| x < &len) {
+                for j in (i..).map(|x| x * i).take_while(|&x| x < len) {
                     // Mark all multiples of i as non-prime
                     bv.set(j, false);
                 }
             }
         }
+    }
+}
+
+impl Default for SieveOfEratosthenes {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -54,7 +60,7 @@ pub struct SieveOfEratosthenesIterator<'a> {
 impl<'a> SieveOfEratosthenesIterator<'a> {
     fn new(sieve: &'a mut SieveOfEratosthenes) -> SieveOfEratosthenesIterator<'a> {
         SieveOfEratosthenesIterator {
-            sieve: sieve,
+            sieve,
             index: 0,
         }
     }

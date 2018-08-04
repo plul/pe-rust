@@ -126,7 +126,7 @@ fn problem() -> u64 {
     sum.to_radix_be(10)
         .into_iter()
         .take(10)
-        .fold(0_u64, |acc, digit| acc * 10 + digit as u64)
+        .fold(0_u64, |acc, digit| acc * 10 + u64::from(digit))
 }
 
 #[cfg(test)]

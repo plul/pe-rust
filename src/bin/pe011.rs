@@ -22,11 +22,12 @@ impl Grid {
             .map(|line| {
                 line.split_whitespace()
                     .map(|s| {
-                        str::parse::<usize>(s).expect(&format!("Failed to parse as usize: {}", s))
+                        str::parse::<usize>(s)
+                            .unwrap_or_else(|_| panic!("Failed to parse as usize: {}", s))
                     }).collect()
             }).collect();
 
-        Grid { data: data }
+        Grid { data }
     }
 
     /// Given a starting point and a direction, produce elements in a given direction until the edge of the grid is reached.

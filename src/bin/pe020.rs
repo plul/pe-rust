@@ -19,7 +19,7 @@ fn factorial(n: usize) -> BigUint {
 
 fn problem(n: usize) -> u64 {
     let f: BigUint = factorial(n);
-    f.to_radix_le(10).into_iter().map(|x| x as u64).sum()
+    f.to_radix_le(10).into_iter().map(u64::from).sum()
 }
 
 #[cfg(test)]
