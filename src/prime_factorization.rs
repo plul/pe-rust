@@ -31,8 +31,7 @@ impl PrimeFactorization {
             .map(|(k, group)| Factor {
                 n: k,
                 exponent: group.count(),
-            })
-            .collect();
+            }).collect();
 
         PrimeFactorization {
             prime_factors: prime_factors_grouped,

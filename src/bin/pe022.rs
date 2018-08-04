@@ -34,8 +34,7 @@ fn name_score(name: &str) -> usize {
 }
 
 fn load_names(data: &str) -> Vec<String> {
-    data
-        .to_ascii_lowercase()
+    data.to_ascii_lowercase()
         .split(',')
         .map(|s| s.trim_matches('"').to_owned())
         .collect()

@@ -13,8 +13,8 @@
 extern crate num;
 extern crate project_euler;
 
-use project_euler::fibonacci::FibonacciIterator;
 use num::bigint::BigUint;
+use project_euler::fibonacci::FibonacciIterator;
 use std::ops::Range;
 use std::time::Instant;
 

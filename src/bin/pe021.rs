@@ -20,8 +20,7 @@ fn problem(n: usize) -> usize {
                 return Some(s + n);
             }
             None
-        })
-        .sum()
+        }).sum()
 }
 
 fn sum_of_divisors(n: usize) -> usize {

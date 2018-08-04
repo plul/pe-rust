@@ -3,8 +3,8 @@
 //! then progress to the next row.
 //! Finally, gather the max value in the final row.
 
-use std::iter;
 use std::cmp::max;
+use std::iter;
 
 pub fn problem(data: &str) -> usize {
     let data = parse_data(data);
@@ -46,12 +46,10 @@ pub fn problem(data: &str) -> usize {
 }
 
 fn parse_data(data: &str) -> Vec<Vec<usize>> {
-    data
-        .lines()
+    data.lines()
         .map(|line| {
             line.split_whitespace()
                 .map(|s| str::parse::<usize>(s).expect(&format!("Failed to parse as usize: {}", s)))
                 .collect()
-        })
-        .collect()
+        }).collect()
 }

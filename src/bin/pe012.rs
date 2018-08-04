@@ -23,8 +23,7 @@ fn problem(n: usize) -> usize {
         .find(|pf| {
             let numof_factors: usize = pf.prime_factors.iter().map(|f| f.exponent + 1).product();
             numof_factors > n
-        })
-        .unwrap();
+        }).unwrap();
 
     pf.product()
 }

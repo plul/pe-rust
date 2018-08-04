@@ -23,10 +23,8 @@ impl Grid {
                 line.split_whitespace()
                     .map(|s| {
                         str::parse::<usize>(s).expect(&format!("Failed to parse as usize: {}", s))
-                    })
-                    .collect()
-            })
-            .collect();
+                    }).collect()
+            }).collect();
 
         Grid { data: data }
     }
