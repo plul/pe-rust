@@ -39,7 +39,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn solution_is_correct() {
+    fn verify_solution() {
         assert_eq!(problem(600851475143), 6857);
     }
 }

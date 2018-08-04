@@ -25,7 +25,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn solution_is_correct() {
+    fn verify_solution() {
         assert_eq!(problem(2_000_000), 142913828922);
     }
 }

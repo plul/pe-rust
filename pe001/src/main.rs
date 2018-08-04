@@ -1,3 +1,6 @@
+//! Problem 1
+//! Description: https://projecteuler.net/problem=1
+
 use std::time::Instant;
 
 fn main() {
@@ -18,7 +21,12 @@ mod test {
     use super::*;
 
     #[test]
-    fn solution_is_correct() {
+    fn example() {
+        assert_eq!(problem(10), 23);
+    }
+
+    #[test]
+    fn verify_solution() {
         assert_eq!(problem(1000), 233168);
     }
 }

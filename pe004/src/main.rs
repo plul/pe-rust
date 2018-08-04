@@ -41,7 +41,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn solution_is_correct() {
+    fn verify_solution() {
         let range = Range {
             start: 100,
             end: 1000,
