@@ -14,7 +14,6 @@ fn main() {
 
 fn problem(x: usize) -> u64 {
     SieveOfEratosthenes::new()
-        .iter()
         .take_while(|&n| n < x)
         .map(|n| n as u64)
         .sum::<u64>()

@@ -1,3 +1,5 @@
+//! This is a solution to [Project Euler Problem 2](https://projecteuler.net/problem=2).
+
 extern crate project_euler;
 
 use project_euler::fibonacci::FibonacciIterator;

@@ -1,5 +1,4 @@
-//! Problem 1
-//! Description: https://projecteuler.net/problem=1
+//! This is a solution to [Project Euler Problem 25](https://projecteuler.net/problem=25).
 
 use std::time::Instant;
 

@@ -1,44 +1,66 @@
 use bit_vec::BitVec;
 
-/// Let index i in the BitVec correspond to the number i.
-pub struct SieveOfEratosthenes(BitVec);
+pub struct SieveOfEratosthenes {
+    head: usize,
+    bv: BitVec,
+    primes: Vec<usize>,
+}
 
 impl SieveOfEratosthenes {
     /// Produce a new sieve
     pub fn new() -> SieveOfEratosthenes {
-        let mut sieve = SieveOfEratosthenes(BitVec::from_elem(8, true));
-        sieve.0.set(0, false); // 0 is not a prime
-        sieve.0.set(1, false); // 1 is not a prime
-        sieve.sieve();
-        sieve
-    }
-
-    // Iterate through primes, dynamically growing the sieve as necessary.
-    pub fn iter(&mut self) -> SieveOfEratosthenesIterator {
-        SieveOfEratosthenesIterator::new(self)
+        let mut bv = BitVec::from_elem(8, true);
+        bv.set(0, false); // 0 is not a prime
+        bv.set(1, false); // 1 is not a prime
+        SieveOfEratosthenes {
+            head: 0,
+            bv,
+            primes: Vec::new(),
+        }
     }
 
     /// Double the size of the sieve
     fn grow(&mut self) {
         {
-            let bv = &mut self.0;
+            let bv = &mut self.bv;
             let n = bv.len();
             bv.grow(n, true);
         }
-        self.sieve();
+
+        for prime in &self.primes {
+            Self::mark_multiples_as_non_prime(&mut self.bv, self.head, *prime);
+        }
     }
 
-    /// Walk through the bitvector, classifying numbers as non-prime
-    fn sieve(&mut self) {
-        let bv = &mut self.0;
+    /// Mark multiples of the prime as non-prime, skipping values before head.
+    fn mark_multiples_as_non_prime(bv: &mut BitVec, head: usize, prime: usize) {
+        let skip = head - head % prime;
         let len = bv.len();
-        for i in 2..len {
-            if bv.get(i) == Some(true) {
-                // i is a prime.
-                for j in (i..).map(|x| x * i).take_while(|&x| x < len) {
-                    // Mark all multiples of i as non-prime
-                    bv.set(j, false);
-                }
+        for non_prime in (0..).map(|x| skip + x * prime).take_while(|&x| x < len) {
+            bv.set(non_prime, false);
+        }
+    }
+}
+
+/// The underlying bitvec will be expanded while iterating, as needed.
+impl Iterator for SieveOfEratosthenes {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        loop {
+            self.head += 1;
+
+            if self.head >= self.bv.len() {
+                self.grow();
+            }
+
+            if self.bv.get(self.head) == Some(true) {
+                // head is at a new prime number
+                let prime = self.head;
+                Self::mark_multiples_as_non_prime(&mut self.bv, self.head, prime);
+                self.primes.push(prime);
+
+                return Some(prime);
             }
         }
     }
@@ -50,40 +72,6 @@ impl Default for SieveOfEratosthenes {
     }
 }
 
-/// An iterator with a mutable reference to the sieve.
-/// It will grow the sieve while iterating, as needed.
-pub struct SieveOfEratosthenesIterator<'a> {
-    sieve: &'a mut SieveOfEratosthenes,
-    index: usize,
-}
-
-impl<'a> SieveOfEratosthenesIterator<'a> {
-    fn new(sieve: &'a mut SieveOfEratosthenes) -> SieveOfEratosthenesIterator<'a> {
-        SieveOfEratosthenesIterator {
-            sieve,
-            index: 0,
-        }
-    }
-}
-
-impl<'a> Iterator for SieveOfEratosthenesIterator<'a> {
-    type Item = usize;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            self.index += 1;
-
-            if self.index >= self.sieve.0.len() {
-                self.sieve.grow();
-            }
-
-            if self.sieve.0.get(self.index) == Some(true) {
-                return Some(self.index);
-            }
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -91,14 +79,14 @@ mod tests {
     #[test]
     fn basic() {
         let mut sieve = SieveOfEratosthenes::new();
-        assert_eq!(sieve.iter().nth(0), Some(2));
-        assert_eq!(sieve.iter().nth(1), Some(3));
-        assert_eq!(sieve.iter().nth(2), Some(5));
+        assert_eq!(sieve.next(), Some(2));
+        assert_eq!(sieve.next(), Some(3));
+        assert_eq!(sieve.next(), Some(5));
     }
 
     #[test]
     fn pe007() {
         let mut sieve = SieveOfEratosthenes::new();
-        assert_eq!(sieve.iter().nth(10000), Some(104743));
+        assert_eq!(sieve.nth(10000), Some(104743));
     }
 }

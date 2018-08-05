@@ -13,7 +13,7 @@ fn main() {
 }
 
 fn problem(n: usize) -> usize {
-    SieveOfEratosthenes::new().iter().nth(n).unwrap()
+    SieveOfEratosthenes::new().nth(n).unwrap()
 }
 
 #[cfg(test)]
