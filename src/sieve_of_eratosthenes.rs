@@ -14,12 +14,12 @@ impl SieveOfEratosthenes {
         }
     }
 
-    pub fn iter<'a>(&'a mut self) -> SieveOfEratosthenesIterator<'a> {
+    pub fn iter(&mut self) -> SieveOfEratosthenesIterator {
         SieveOfEratosthenesIterator::new(self)
     }
 
     /// Determine if a number is prime
-    pub fn is_prime(&mut self, n: usize) -> bool {
+    pub fn check_if_prime(&mut self, n: usize) -> bool {
         while self.largest_prime() < n {
             // need to find more primes
             self.sieve();
@@ -80,8 +80,7 @@ impl SieveOfEratosthenes {
             self.head += 1;
         }
 
-        let discovered_primes = self.primes.len() - primes_before_search;
-        discovered_primes
+        self.primes.len() - primes_before_search
     }
 
     /// Return a sort of offset that "aligns" a prime with `head`.
@@ -124,7 +123,7 @@ impl<'a> Iterator for SieveOfEratosthenesIterator<'a> {
         while self.sieve.primes.len() <= self.n {
             self.sieve.sieve();
         }
-        let prime = *self.sieve.primes.get(self.n).unwrap();
+        let prime = self.sieve.primes[self.n];
         self.n += 1;
         Some(prime)
     }
@@ -163,12 +162,12 @@ mod tests {
     }
 
     #[test]
-    fn is_prime() {
+    fn check_if_prime() {
         let mut sieve = SieveOfEratosthenes::new();
-        assert!(sieve.is_prime(13));
-        assert!(sieve.is_prime(23));
-        assert!(sieve.is_prime(79));
-        assert!(sieve.is_prime(104743));
+        assert!(sieve.check_if_prime(13));
+        assert!(sieve.check_if_prime(23));
+        assert!(sieve.check_if_prime(79));
+        assert!(sieve.check_if_prime(104743));
     }
 
     #[test]

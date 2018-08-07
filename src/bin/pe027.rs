@@ -34,7 +34,7 @@ fn consecutive_primes(a: isize, b: isize, sieve: &mut SieveOfEratosthenes) -> us
             // Map to usize, while discarding negative numbers that cannot be mapped.
             // Negative numbers are not prime anyway.
             usize::try_from(x).ok()
-        }).take_while(|&x| sieve.is_prime(x))
+        }).take_while(|&x| sieve.check_if_prime(x))
         .count()
 }
 

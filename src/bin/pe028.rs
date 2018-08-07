@@ -16,7 +16,7 @@ fn problem(grid_size: usize) -> usize {
     (1..=grid_size / 2)
         .flat_map(|x| iter::repeat(x * 2).take(4))
         .scan(1, |state, x| {
-            *state = *state + x;
+            *state += x;
             Some(*state)
         })
         .sum::<usize>() + 1
