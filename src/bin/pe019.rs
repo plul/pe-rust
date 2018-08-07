@@ -47,12 +47,7 @@ impl SimpleCalendar {
                 day %= 30;
             }
             1 => {
-                day %= if self.date.is_leap_year() {
-                    29
-                }
-                else {
-                    28
-                };
+                day %= if self.date.is_leap_year() { 29 } else { 28 };
             }
             _ => panic!("Unexpected month value"),
         }
