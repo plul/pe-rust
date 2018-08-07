@@ -1,7 +1,7 @@
 //! This is a solution to [Project Euler Problem 32](https://projecteuler.net/problem=32).
 
 use std::time::Instant;
-use std::collections::HashSet;
+use std::collections::BTreeSet;
 
 struct Permutations<T: Clone> {
     collection: Vec<T>,
@@ -68,7 +68,7 @@ fn problem() -> usize {
     let digits: Vec<u8> = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
     let permutations = Permutations::new(digits);
 
-    let mut discoveries = HashSet::new();
+    let mut discoveries = BTreeSet::new();
 
     for p in permutations {
             // Playing around with the numbers for a bit reveals that the pattern must be either:
