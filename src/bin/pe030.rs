@@ -1,8 +1,10 @@
 //! This is a solution to [Project Euler Problem 30](https://projecteuler.net/problem=30).
 
+#![feature(no_panic_pow)]
+
 extern crate project_euler;
 
-use project_euler::digit_iterator::DigitIterator;
+use project_euler::digit_iterator::ToDigits;
 use std::time::Instant;
 
 fn main() {
@@ -16,8 +18,14 @@ fn main() {
 
 fn problem(p: u32) -> u32 {
     (2_u32..=largest_number_that_has_to_be_checked(p))
-        .filter(|&x| x == DigitIterator::new(x).map(|digit| digit.pow(p)).sum())
-        .sum()
+        .filter(|&x| {
+            x == x
+                .to_digits()
+                .into_iter()
+                .map(|digit| u32::from(digit))
+                .map(|digit| digit.checked_pow(p).unwrap())
+                .sum()
+        }).sum()
 }
 
 /// Find the largest number that has to be checked.

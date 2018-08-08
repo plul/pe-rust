@@ -4,7 +4,7 @@ extern crate num;
 extern crate project_euler;
 
 use num::rational::Ratio;
-use project_euler::digit_iterator::DigitIterator;
+use project_euler::digit_iterator::ToDigits;
 use std::time::Instant;
 
 fn main() {
@@ -26,8 +26,8 @@ fn problem() -> usize {
                 continue;
             }
 
-            let numer_digits = DigitIterator::new(numer).collect::<Vec<usize>>();
-            let denom_digits = DigitIterator::new(denom).collect::<Vec<usize>>();
+            let numer_digits: Vec<u8> = numer.to_digits();
+            let denom_digits: Vec<u8> = denom.to_digits();
 
             let mut incorrectly_simplified = Vec::new();
 
@@ -39,7 +39,7 @@ fn problem() -> usize {
             }
 
             for (numer_digit, denom_digit) in incorrectly_simplified {
-                let rational_incorrectly_simplified = Ratio::<usize>::new(numer_digit, denom_digit);
+                let rational_incorrectly_simplified = Ratio::<usize>::new(usize::from(numer_digit), usize::from(denom_digit));
                 if rational_incorrectly_simplified == Ratio::<usize>::new(numer, denom) {
                     targets.push(rational_incorrectly_simplified.reduced());
                 }

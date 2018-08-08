@@ -29,14 +29,22 @@ impl SieveOfEratosthenes {
     }
 
     /// Return the largest prime found so far.
-    fn largest_prime(&self) -> usize {
+    pub fn largest_prime(&self) -> usize {
         *self.primes.last().unwrap()
+    }
+
+    pub fn get_nth(&mut self, n: usize) -> usize {
+        while self.primes.len() <= n {
+            // need to find more primes
+            self.sieve();
+        }
+        self.primes[n]
     }
 
     /// Search for new primes.
     ///
     /// Return the number of newly discovered primes.
-    fn sieve(&mut self) -> usize {
+    pub fn sieve(&mut self) -> usize {
         let primes_before_search = self.primes.len();
 
         // Use one megabyte of RAM for the search.
@@ -107,12 +115,12 @@ impl Default for SieveOfEratosthenes {
 
 pub struct SieveOfEratosthenesIterator<'a> {
     sieve: &'a mut SieveOfEratosthenes,
-    n: usize,
+    idx: usize,
 }
 
 impl<'a> SieveOfEratosthenesIterator<'a> {
     fn new(sieve: &'a mut SieveOfEratosthenes) -> SieveOfEratosthenesIterator<'a> {
-        SieveOfEratosthenesIterator { sieve, n: 0 }
+        SieveOfEratosthenesIterator { sieve, idx: 0 }
     }
 }
 
@@ -120,11 +128,8 @@ impl<'a> Iterator for SieveOfEratosthenesIterator<'a> {
     type Item = usize;
 
     fn next(&mut self) -> Option<Self::Item> {
-        while self.sieve.primes.len() <= self.n {
-            self.sieve.sieve();
-        }
-        let prime = self.sieve.primes[self.n];
-        self.n += 1;
+        let prime = self.sieve.get_nth(self.idx);
+        self.idx += 1;
         Some(prime)
     }
 }
@@ -146,7 +151,22 @@ mod tests {
     }
 
     #[test]
-    fn basic() {
+    fn get_nth() {
+        let mut sieve = SieveOfEratosthenes::new();
+        assert_eq!(sieve.get_nth(0), 2);
+        assert_eq!(sieve.get_nth(1), 3);
+        assert_eq!(sieve.get_nth(2), 5);
+        assert_eq!(sieve.get_nth(3), 7);
+        assert_eq!(sieve.get_nth(4), 11);
+        assert_eq!(sieve.get_nth(5), 13);
+        assert_eq!(sieve.get_nth(6), 17);
+        assert_eq!(sieve.get_nth(7), 19);
+        assert_eq!(sieve.get_nth(8), 23);
+        assert_eq!(sieve.get_nth(9), 29);
+    }
+
+    #[test]
+    fn iter_basic() {
         let mut sieve = SieveOfEratosthenes::new();
         let mut primes = sieve.iter();
         assert_eq!(primes.next(), Some(2));

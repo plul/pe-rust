@@ -1,6 +1,6 @@
 extern crate project_euler;
 
-use project_euler::digit_iterator::DigitIterator;
+use project_euler::digit_iterator::ToDigits;
 use std::ops::Range;
 use std::time::Instant;
 
@@ -27,13 +27,15 @@ fn problem(range: Range<usize>) -> usize {
 
 /// Iterate from left to right and right to left at the same time, comparing digits.
 fn is_palindrome(n: usize) -> bool {
-    let from_right = DigitIterator::new(n);
-    let from_left = DigitIterator::new(n)
-        .collect::<Vec<usize>>()
-        .into_iter()
-        .rev();
+    let digits: Vec<u8> = n.to_digits();
 
-    from_right.zip(from_left).all(|(a, b)| a == b)
+    let reversed = {
+        let mut clone = digits.clone();
+        clone.reverse();
+        clone
+    };
+
+    digits == reversed
 }
 
 #[cfg(test)]

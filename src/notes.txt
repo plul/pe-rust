@@ -1,1 +1,3 @@
 implement fusediterator where it makes sense
+
+make permutations and cycles into traits like what was done with the digit iterator

@@ -37,6 +37,6 @@ mod test {
 
     #[test]
     fn verify_solution() {
-        assert_eq!(problem(100), 0);
+        assert_eq!(problem(100), 9183);
     }
 }

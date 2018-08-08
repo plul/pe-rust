@@ -2,7 +2,7 @@
 
 extern crate project_euler;
 
-use project_euler::digit_iterator::DigitIterator;
+use project_euler::digit_iterator::ToDigits;
 use std::time::Instant;
 
 fn main() {
@@ -17,8 +17,13 @@ fn main() {
 fn problem() -> u64 {
     let to = largest_number_that_has_to_be_checked();
     (3_u64..=to)
-        .filter(|&x| x == DigitIterator::new(x).map(factorial).sum())
-        .sum()
+        .filter(|&x| {
+            x == x
+                .to_digits()
+                .into_iter()
+                .map(|digit| factorial(u64::from(digit)))
+                .sum()
+        }).sum()
 }
 
 fn factorial(n: u64) -> u64 {
