@@ -1,4 +1,1 @@
-Incorporate Permutations struct from problem 32 into the lib.
-Use it for problem 32 and 24.
-
 implement fusediterator where it makes sense

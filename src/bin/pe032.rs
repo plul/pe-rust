@@ -1,59 +1,10 @@
 //! This is a solution to [Project Euler Problem 32](https://projecteuler.net/problem=32).
 
+extern crate project_euler;
+
 use std::time::Instant;
 use std::collections::BTreeSet;
-
-struct Permutations<T: Clone> {
-    collection: Vec<T>,
-    p: usize,
-    possibilities: usize,
-}
-
-impl<T: Clone> Permutations<T> {
-    fn new(collection: Vec<T>) -> Permutations<T> {
-        let possibilities = Self::factorial(collection.len());
-        Permutations {
-            collection,
-            p: 0,
-            possibilities,
-        }
-    }
-
-    fn factorial(n: usize) -> usize {
-        (1..=n).product()
-    }
-
-    fn permutation(&self, mut target: usize) -> Vec<T> {
-        let mut c = self.collection.clone();
-        let mut v = Vec::<T>::with_capacity(c.len());
-
-        while !c.is_empty() {
-            let l = c.len();
-            let f = Self::factorial(l);
-
-            let i = l * target / f;
-            v.push(c.remove(i));
-
-            target %= f / l;
-        }
-
-        v
-    }
-}
-
-impl<T: Clone> Iterator for Permutations<T> {
-    type Item = Vec<T>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.p == self.possibilities {
-            None
-        } else {
-            let permutation = self.permutation(self.p);
-            self.p += 1;
-            Some(permutation)
-        }
-    }
-}
+use project_euler::permutations::Permutations;
 
 fn main() {
     let t_0 = Instant::now();
