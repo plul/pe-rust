@@ -12,5 +12,6 @@ These solutions are obviously spoilers for anyone wanting to solve the problems 
 
 ## Organization
 
+There is one source file per problem.
 Some techniques are useful for multiple problems, such as finding primes or separating a number into its constituent digits.
-Tools for these purposes are collected into a library, and the binary crates leverage that library.
+Tools for common purposes are placed into the `common` module.
