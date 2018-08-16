@@ -7,3 +7,4 @@ authors = ["Asger Juul Brunshøj <asgerbrunshoj@gmail.com>"]
 num = "0.2"
 itertools = "0.7"
 bit-vec = "0.5"
+clap = "2.32"
