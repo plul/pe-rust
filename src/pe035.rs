@@ -11,7 +11,6 @@ pub fn solve() -> impl Display {
 }
 
 fn problem(n: usize) -> u64 {
-    // Find all primes below `n`
     let mut result = 0;
 
     let mut sieve = SieveOfEratosthenes::new();
@@ -27,7 +26,7 @@ fn problem(n: usize) -> u64 {
         digits.reverse();
 
         'inner: for rot in Rotations::new(digits) {
-            let rot_as_integer = integer_from_digit_slice(&rot);
+            let rot_as_integer = integer_from_digit_slice(rot.iter());
             if !sieve.check_if_prime(rot_as_integer) {
                 continue 'outer;
             }
