@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 34](https://projecteuler.net/problem=34).
 
-use common::digit_iterator::ToDigits;
+use common::radix::Radix;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {
@@ -8,7 +8,7 @@ pub fn solve() -> impl Display {
     (3_u64..=to)
         .filter(|&x| {
             x == x
-                .to_digits()
+                .to_radix_le(10)
                 .into_iter()
                 .map(|digit| factorial(u64::from(digit)))
                 .sum()

@@ -1,6 +1,6 @@
 use std::ops::{AddAssign, MulAssign};
 
-pub fn integer_from_digit_slice<'a, T, U>(digits: U) -> T
+pub fn integer_from_digits<'a, T, U>(digits: U) -> T
 where
     T: From<u8> + AddAssign + MulAssign,
     U: Iterator<Item = &'a u8>,

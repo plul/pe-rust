@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 30](https://projecteuler.net/problem=30).
 
-use common::digit_iterator::ToDigits;
+use common::radix::Radix;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {
@@ -11,7 +11,7 @@ fn problem(p: u32) -> u32 {
     (2_u32..=largest_number_that_has_to_be_checked(p))
         .filter(|&x| {
             x == x
-                .to_digits()
+                .to_radix_le(10)
                 .into_iter()
                 .map(|digit| u32::from(digit))
                 .map(|digit| digit.checked_pow(p).unwrap())

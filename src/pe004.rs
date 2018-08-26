@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 4](https://projecteuler.net/problem=4).
 
-use common::digit_iterator::ToDigits;
+use common::radix::Radix;
 use std::ops::Range;
 use std::fmt::Display;
 
@@ -21,7 +21,7 @@ fn problem(range: Range<usize>) -> usize {
 }
 
 fn is_palindrome(n: usize) -> bool {
-    let digits: Vec<u8> = n.to_digits();
+    let digits: Vec<u8> = n.to_radix_le(10);
 
     let reversed = {
         let mut clone = digits.clone();

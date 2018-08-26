@@ -1,7 +1,7 @@
 //! This is a solution to [Project Euler Problem 33](https://projecteuler.net/problem=33).
 
 use num::rational::Ratio;
-use common::digit_iterator::ToDigits;
+use common::radix::Radix;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display  {
@@ -14,8 +14,8 @@ pub fn solve() -> impl Display  {
                 continue;
             }
 
-            let numer_digits: Vec<u8> = numer.to_digits();
-            let denom_digits: Vec<u8> = denom.to_digits();
+            let numer_digits: Vec<u8> = numer.to_radix_le(10);
+            let denom_digits: Vec<u8> = denom.to_radix_le(10);
 
             let mut incorrectly_simplified = Vec::new();
 
