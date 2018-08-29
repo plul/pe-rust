@@ -1,4 +1,5 @@
 use bit_vec::BitVec;
+use common::radix::Radix;
 
 pub struct SieveOfEratosthenes {
     head: usize,
@@ -20,6 +21,26 @@ impl SieveOfEratosthenes {
 
     /// Determine if a number is prime
     pub fn check_if_prime(&mut self, n: usize) -> bool {
+        // Check if the number is divisible by the first few primes
+        for p in vec![2, 3, 5, 7, 11, 13, 17, 19] {
+            if n == p {
+                return true;
+            }
+            else if n % p == 0 {
+                return false;
+            }
+        }
+
+        // Check if the sum of the digits modulo 9 is divisible by 3:
+        let sum_of_digits = n
+            .to_radix_le(10)
+            .into_iter()
+            .map(|x| usize::from(x))
+            .sum::<usize>();
+        if sum_of_digits % 3 == 0 {
+            return false;
+        }
+
         while self.largest_prime() < n {
             // need to find more primes
             self.sieve();
@@ -47,8 +68,8 @@ impl SieveOfEratosthenes {
     pub fn sieve(&mut self) -> usize {
         let primes_before_search = self.primes.len();
 
-        // Use one megabyte of RAM for the search.
-        let n = 1024 * 1024;
+        // Use half a megabyte of RAM for the search.
+        let n = 1024 * 1024 * 8 / 2;
         let mut bv = BitVec::from_elem(n, true);
 
         // Index `i` in the `BitVec` represents the number `i + offset`.
@@ -163,6 +184,9 @@ mod tests {
         assert_eq!(sieve.get_nth(7), 19);
         assert_eq!(sieve.get_nth(8), 23);
         assert_eq!(sieve.get_nth(9), 29);
+
+        // From Problem 7
+        assert_eq!(sieve.get_nth(10000), 104743);
     }
 
     #[test]
@@ -188,12 +212,7 @@ mod tests {
         assert!(sieve.check_if_prime(23));
         assert!(sieve.check_if_prime(79));
         assert!(sieve.check_if_prime(104743));
-    }
-
-    #[test]
-    fn pe007() {
-        let mut sieve = SieveOfEratosthenes::new();
-        let mut primes = sieve.iter();
-        assert_eq!(primes.nth(10000), Some(104743));
+        assert!(!sieve.check_if_prime(987654321));
+        assert!(!sieve.check_if_prime(87654321));
     }
 }
