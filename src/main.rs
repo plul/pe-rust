@@ -5,9 +5,9 @@
 #![feature(try_from)]
 #![feature(no_panic_pow)]
 
+extern crate itertools;
 extern crate bit_vec;
 extern crate clap;
-extern crate itertools;
 extern crate num;
 
 mod common;
@@ -49,6 +49,7 @@ mod pe035;
 mod pe036;
 mod pe037;
 mod pe038;
+mod pe039;
 mod pe208;
 
 use clap::{App, Arg};
@@ -116,6 +117,7 @@ fn main() {
         "36" => time!(pe036::solve()),
         "37" => time!(pe037::solve()),
         "38" => time!(pe038::solve()),
+        "39" => time!(pe039::solve()),
         "208" => time!(pe208::solve()),
         _ => println!("Unknown problem input"),
     }
@@ -162,5 +164,6 @@ fn verify_solutions() {
     assert_eq!(pe036::solve().to_string(), "872187");
     assert_eq!(pe037::solve().to_string(), "748317");
     assert_eq!(pe038::solve().to_string(), "932718654");
+    assert_eq!(pe039::solve().to_string(), "840");
     assert_eq!(pe208::solve().to_string(), "331951449665644800");
 }
