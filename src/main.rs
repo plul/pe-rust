@@ -54,6 +54,7 @@ mod pe040;
 mod pe041;
 mod pe042;
 mod pe043;
+mod pe044;
 mod pe208;
 
 use clap::{App, Arg};
@@ -126,6 +127,7 @@ fn main() {
         "41" => time!(pe041::solve()),
         "42" => time!(pe042::solve()),
         "43" => time!(pe043::solve()),
+        "44" => time!(pe044::solve()),
         "208" => time!(pe208::solve()),
         _ => println!("Unknown problem input"),
     }
@@ -177,5 +179,6 @@ fn verify_solutions() {
     assert_eq!(pe041::solve().to_string(), "7652413");
     assert_eq!(pe042::solve().to_string(), "162");
     assert_eq!(pe043::solve().to_string(), "16695334890");
+    assert_eq!(pe044::solve().to_string(), "5482660");
     assert_eq!(pe208::solve().to_string(), "331951449665644800");
 }
