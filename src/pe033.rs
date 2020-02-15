@@ -1,7 +1,7 @@
 //! This is a solution to [Project Euler Problem 33](https://projecteuler.net/problem=33).
 
 use num::rational::Ratio;
-use common::radix::Radix;
+use crate::common::radix::Radix;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display  {

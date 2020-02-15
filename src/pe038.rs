@@ -1,8 +1,8 @@
 //! This is a solution to [Project Euler Problem 38](https://projecteuler.net/problem=38).
 
-use common::util::integer_from_digits;
-use common::radix::Radix;
-use common::pandigital::Pandigital;
+use crate::common::util::integer_from_digits;
+use crate::common::radix::Radix;
+use crate::common::pandigital::Pandigital;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

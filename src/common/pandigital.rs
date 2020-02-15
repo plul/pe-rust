@@ -1,4 +1,4 @@
-use common::radix::Radix;
+use crate::common::radix::Radix;
 use num::FromPrimitive;
 
 pub trait Pandigital {

@@ -42,10 +42,10 @@ fn name_fragment(n: usize) -> &'static str {
 
 fn name(n: usize) -> String {
     match n {
-        1...19 => name_fragment(n).to_owned(),
-        20...99 => name_fragment(n / 10 * 10).to_owned() + name_fragment(n % 10),
-        100...999 => {
-            let mut hundreds = name_fragment(n / 100).to_owned() + "hundred";
+        1..=19 => name_fragment(n).to_owned(),
+        20..=99 => name_fragment(n / 10 * 10).to_owned() + name_fragment(n % 10),
+        100..=999 => {
+            let hundreds = name_fragment(n / 100).to_owned() + "hundred";
             match n % 100 {
                 0 => hundreds,
                 _ => hundreds + "and" + &name(n % 100),

@@ -6,8 +6,8 @@
 //! The same can be said for any permuration of the number, and for 87_654_321 and its permutation.
 //! Therefore the upper bound is 7_654_321.
 
-use common::pandigital::Pandigital;
-use common::sieve_of_eratosthenes::SieveOfEratosthenes;
+use crate::common::pandigital::Pandigital;
+use crate::common::sieve_of_eratosthenes::SieveOfEratosthenes;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

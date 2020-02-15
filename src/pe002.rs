@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 2](https://projecteuler.net/problem=2).
 
-use common::fibonacci::FibonacciIterator;
+use crate::common::fibonacci::FibonacciIterator;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

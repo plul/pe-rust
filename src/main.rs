@@ -2,14 +2,6 @@
 //!
 //! Project Euler is a collection of math oriented problems meant to be solved through programming.
 
-#![feature(try_from)]
-#![feature(no_panic_pow)]
-
-extern crate itertools;
-extern crate bit_vec;
-extern crate clap;
-extern crate num;
-
 mod common;
 mod pe001;
 mod pe002;

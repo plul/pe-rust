@@ -1,7 +1,7 @@
 //! This is a solution to [Project Euler Problem 32](https://projecteuler.net/problem=32).
 
 use std::collections::BTreeSet;
-use common::permutations::Permutations;
+use crate::common::permutations::Permutations;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

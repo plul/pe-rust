@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 40](https://projecteuler.net/problem=40).
 
-use common::radix::Radix;
+use crate::common::radix::Radix;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

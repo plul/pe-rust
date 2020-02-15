@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 18](https://projecteuler.net/problem=18).
 
-use common::maximum_path_sum;
+use crate::common::maximum_path_sum;
 use std::fmt::Display;
 use std::str;
 

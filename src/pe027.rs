@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 27](https://projecteuler.net/problem=27).
 
-use common::sieve_of_eratosthenes::SieveOfEratosthenes;
+use crate::common::sieve_of_eratosthenes::SieveOfEratosthenes;
 use std::convert::TryFrom;
 use std::fmt::Display;
 

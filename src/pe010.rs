@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 10](https://projecteuler.net/problem=10).
 
-use common::sieve_of_eratosthenes::SieveOfEratosthenes;
+use crate::common::sieve_of_eratosthenes::SieveOfEratosthenes;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

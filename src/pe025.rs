@@ -11,7 +11,7 @@
 //! See the helper function [estimate_number_of_digits_in_base_10](estimate_number_of_digits_in_base_10).
 //! When necessary, the BigUint is represented as digits in base 10 by way of the [to_radix_le](num::bigint::BigUint::to_radix_le) method, in order to accurately count the digits.
 
-use common::fibonacci::FibonacciIterator;
+use crate::common::fibonacci::FibonacciIterator;
 use num::bigint::BigUint;
 use std::fmt::Display;
 use std::ops::Range;

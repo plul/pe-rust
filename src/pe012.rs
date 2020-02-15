@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 12](https://projecteuler.net/problem=12).
 
-use common::prime_factorization::PrimeFactorization;
+use crate::common::prime_factorization::PrimeFactorization;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

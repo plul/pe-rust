@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 43](https://projecteuler.net/problem=43).
 
-use common::util::integer_from_digits;
+use crate::common::util::integer_from_digits;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

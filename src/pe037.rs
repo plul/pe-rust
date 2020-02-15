@@ -1,8 +1,8 @@
 //! This is a solution to [Project Euler Problem 37](https://projecteuler.net/problem=37).
 
-use common::radix::Radix;
-use common::sieve_of_eratosthenes::SieveOfEratosthenes;
-use common::util::integer_from_digits;
+use crate::common::radix::Radix;
+use crate::common::sieve_of_eratosthenes::SieveOfEratosthenes;
+use crate::common::util::integer_from_digits;
 use std::collections::VecDeque;
 use std::fmt::Display;
 

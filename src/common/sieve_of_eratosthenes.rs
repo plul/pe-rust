@@ -1,5 +1,5 @@
 use bit_vec::BitVec;
-use common::radix::Radix;
+use crate::common::radix::Radix;
 
 pub struct SieveOfEratosthenes {
     head: usize,

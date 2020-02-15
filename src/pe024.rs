@@ -8,7 +8,7 @@
 //! Furthermore, those are all ordered, so it is fairly simple to figure out which
 //! character should come first, and then the same logic can be applied for the next...
 
-use common::permutations::Permutations;
+use crate::common::permutations::Permutations;
 use std::fmt::Display;
 
 pub fn solve() -> impl Display {

@@ -1,6 +1,6 @@
 //! This is a solution to [Project Euler Problem 4](https://projecteuler.net/problem=4).
 
-use common::radix::Radix;
+use crate::common::radix::Radix;
 use std::ops::Range;
 use std::fmt::Display;
 
