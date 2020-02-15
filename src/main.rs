@@ -126,7 +126,6 @@ fn main() {
 }
 
 #[test]
-#[ignore]
 fn verify_solutions() {
     assert_eq!(pe001::solve().to_string(), "233168");
     assert_eq!(pe002::solve().to_string(), "4613732");
